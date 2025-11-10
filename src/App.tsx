@@ -5,6 +5,7 @@ import LocationPinIcon from '@mui/icons-material/LocationPin';
 
 import './App.css';
 import { SevenDayForecast } from './components/organisms/SevenDayForecast';
+import { HourlyForecast } from './components/organisms/HourlyForecast';
 import useGeolocation from './hooks/useGeolocation';
 import useWeather from './hooks/useWeather';
 
@@ -75,17 +76,7 @@ function App() {
             </Accordion>
 
             <SevenDayForecast forecast={primaryLocationForecast} />
-
-            <Accordion>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography variant="h6">Hourly Forecast</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <div className="prose">
-                  <p>Hourly weather forecast details go here.</p>
-                </div>
-              </AccordionDetails>
-            </Accordion>
+            <HourlyForecast forecast={primaryLocationForecastHourly} />
           </div>
         </div>
       </main>

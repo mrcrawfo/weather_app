@@ -8,11 +8,10 @@ export const ForecastDay = ({ day }: any) => {
                     <img src={day.icon} alt={day.shortForecast} />
                 </ListItemIcon>
                 <ListItemText className="flex flex-col m-y-2">
-                    <Typography variant="h4">{day.name}</Typography>
-                    <Typography variant="body1">{day.shortForecast} - {day.temperature}° {day.temperatureUnit}</Typography>
-                    <Typography variant="subtitle1">Wind: {day.windSpeed} {day.windDirection}</Typography>
-                    <Typography variant="subtitle1">{day.detailedForecast}</Typography>
-                    <Typography variant="subtitle1">{day.probabilityOfPrecipitation.value}% chance of precipitation</Typography>
+                    <Typography variant="h5">{day.name}</Typography>
+                    <Typography variant="h6">{day.shortForecast} - {day.temperature}° {day.temperatureUnit}</Typography>
+                    <Typography variant="body1">Wind: {day.windSpeed} {day.windDirection}, {day.probabilityOfPrecipitation.value}% chance of precipitation</Typography>
+                    <Typography variant="body2">{day.detailedForecast}</Typography>
                 </ListItemText>
             </ListItemButton>
         </ListItem>
