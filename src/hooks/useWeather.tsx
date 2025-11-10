@@ -4,7 +4,7 @@ export default function useWeather() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     
-    const [primaryLocation, setPrimaryLocation] = useState<{ lat: number; lng: number } | null>(null);
+    const [primaryLocation, setPrimaryLocation] = useState<{ lat: number; lng: number, city?: string, state?: string } | null>(null);
     const [primaryLocationForecastCity, setPrimaryLocationForecastCity] = useState<string | null>(null);
     const [primaryLocationForecastState, setPrimaryLocationForecastState] = useState<string | null>(null);
     const [primaryLocationForecastUrl, setPrimaryLocationForecastUrl] = useState<string | null>(null);
@@ -19,7 +19,7 @@ export default function useWeather() {
         setError(null);
         setPrimaryLocationForecast(null);
         setPrimaryLocationForecastHourly(null);
-
+        
         if (primaryLocation) {
             const latEncoded = encodeURIComponent(primaryLocation.lat);
             const lngEncoded = encodeURIComponent(primaryLocation.lng);
@@ -32,8 +32,8 @@ export default function useWeather() {
                     if (mounted) {
                         setPrimaryLocationForecastUrl(json.properties.forecast);
                         setPrimaryLocationForecastHourlyUrl(json.properties.forecastHourly);
-                        setPrimaryLocationForecastCity(json.properties.relativeLocation.properties.city);
-                        setPrimaryLocationForecastState(json.properties.relativeLocation.properties.state);
+                        setPrimaryLocationForecastCity(primaryLocation.city || json.properties.relativeLocation.properties.city);
+                        setPrimaryLocationForecastState(primaryLocation.state || json.properties.relativeLocation.properties.state);
                     }
                 })
                 .catch((err) => {

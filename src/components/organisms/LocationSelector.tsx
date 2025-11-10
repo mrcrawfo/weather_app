@@ -7,7 +7,7 @@ import useFavoriteLocations from '../../hooks/useFavoriteLocations';
 import useGeocoding from '../../hooks/useGeocoding';
 import type { USLocation } from '../../types/forecast';
 
-export const LocationSelector = ({ locationName, setPrimaryLocation }: { locationName: string | null, setPrimaryLocation: (location: { lat: number, lng: number }) => void }) => {
+export const LocationSelector = ({ locationName, setPrimaryLocation }: { locationName: string | null, setPrimaryLocation: (location: { lat: number, lng: number, city?: string, state?: string }) => void }) => {
   const [usingGeolocation, setUsingGeolocation] = useState<boolean>(true);
 
   const { favoriteLocations, addFavoriteLocation, removeFavoriteLocation } = useFavoriteLocations();
@@ -18,7 +18,7 @@ export const LocationSelector = ({ locationName, setPrimaryLocation }: { locatio
   const handleLocationClick = (newLocation: USLocation) => {
     if (newLocation.lat && newLocation.lng) {
       setUsingGeolocation(false);
-      setPrimaryLocation({ lat: parseFloat(newLocation.lat), lng: parseFloat(newLocation.lng) });
+      setPrimaryLocation({ lat: parseFloat(newLocation.lat), lng: parseFloat(newLocation.lng), city: newLocation.city, state: newLocation.state });
     }
   };
 
