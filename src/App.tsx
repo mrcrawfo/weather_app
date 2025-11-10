@@ -1,12 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, LinearProgress, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LocationPinIcon from '@mui/icons-material/LocationPin';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 import './App.css';
+import useGeolocation from './hooks/useGeolocation';
+import useWeather from './hooks/useWeather';
 
 function App() {
   const [locationName, setLocationName] = useState<string | null>(null);
+
+  const { geolocation } = useGeolocation();
+
+  const { primaryLocationForecast, primaryLocationForecastHourly, primaryLocationForecastCity, primaryLocationForecastState, setPrimaryLocation, loading, error } = useWeather();
+
+  useEffect(() => {
+    if (geolocation) {
+      console.log('Current geolocation:', geolocation);
+      setPrimaryLocation(geolocation);
+    }
+  }, [geolocation, setPrimaryLocation]);
+
+  useEffect(() => {
+    if (primaryLocationForecastCity && primaryLocationForecastState) {
+      setLocationName(`${primaryLocationForecastCity}, ${primaryLocationForecastState}`);
+    }
+  }, [primaryLocationForecastCity, primaryLocationForecastState]);
 
   return (
     <div className="min-h-screen min-w-screen flex flex-col bg-gray-50">
@@ -25,7 +45,7 @@ function App() {
               {locationName ? (
                 <Typography variant="h6">{locationName}</Typography>
               ) : (
-                <LinearProgress />
+                <Typography variant="h6" className="animate-pulse font-stretch-semi-expanded font-thin">Loading location...</Typography>
               )}
               </AccordionSummary>
               <AccordionDetails>
@@ -50,6 +70,33 @@ function App() {
                       </AccordionDetails>
                     </Accordion>
                   </div>
+                </div>
+              </AccordionDetails>
+            </Accordion>
+
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography variant="h6">7-Day Forecast</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <div className="prose">
+                  <p>7-day weather forecast details go here.</p>
+                  <DotLottieReact
+                    src="weather_icons/partly_cloudy.lottie"
+                    loop
+                    autoplay
+                  />
+                </div>
+              </AccordionDetails>
+            </Accordion>
+
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography variant="h6">Hourly Forecast</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <div className="prose">
+                  <p>Hourly weather forecast details go here.</p>
                 </div>
               </AccordionDetails>
             </Accordion>
