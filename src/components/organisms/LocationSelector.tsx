@@ -62,7 +62,11 @@ export const LocationSelector = ({ locationName, setPrimaryLocation }: { locatio
                         onInputChange={(_, value) => {
                           // TODO: Handle input/location change
                           console.log('Custom location input changed to:', value);
-                          setSelectedLocation(USLocations.find((loc) => loc.name === value) || null);
+                          const newLocation = USLocations.find((loc) => loc.name === value);
+                          setSelectedLocation(newLocation || null);
+                          if (newLocation && newLocation.lat && newLocation.lng) {
+                            setPrimaryLocation({ lat: parseFloat(newLocation.lat), lng: parseFloat(newLocation.lng), city: newLocation.city, state: newLocation.state });
+                          }
                           console.log('Selected location set to:', selectedLocation);
                         }}
                         renderInput={(params) => <TextField {...params} label="Enter custom location" />}

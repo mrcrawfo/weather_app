@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 
 import './App.css';
-import { SevenDayForecast } from './components/organisms/SevenDayForecast';
-import { HourlyForecast } from './components/organisms/HourlyForecast';
 import useGeolocation from './hooks/useGeolocation';
 import useWeather from './hooks/useWeather';
 import { LocationSelector } from './components/organisms/LocationSelector';
+import { SevenDayForecast } from './components/organisms/SevenDayForecast';
+import { HourlyForecast } from './components/organisms/HourlyForecast';
+import { ComparisonView } from './components/organisms/ComparisonView';
 import { ApplicationHeader } from './components/atoms/ApplicationHeader';
 import { ApplicationFooter } from './components/atoms/ApplicationFooter';
 
@@ -14,7 +15,7 @@ function App() {
 
   const { geolocation } = useGeolocation();
 
-  const { primaryLocationForecast, primaryLocationForecastHourly, primaryLocationForecastCity, primaryLocationForecastState, setPrimaryLocation } = useWeather();
+  const { primaryLocationForecast, primaryLocationForecastHourly, primaryLocationForecastCity, primaryLocationForecastState, secondaryLocationForecast, secondaryLocationForecastHourly, secondaryLocationForecastCity, secondaryLocationForecastState, setPrimaryLocation, setSecondaryLocation } = useWeather();
 
   useEffect(() => {
     if (geolocation) {
@@ -39,6 +40,17 @@ function App() {
             <LocationSelector locationName={locationName} setPrimaryLocation={setPrimaryLocation} />
             <SevenDayForecast forecast={primaryLocationForecast} />
             <HourlyForecast forecast={primaryLocationForecastHourly} />
+            <ComparisonView
+              forecast={primaryLocationForecast}
+              forecastHourly={primaryLocationForecastHourly}
+              primaryLocationCity={primaryLocationForecastCity}
+              primaryLocationState={primaryLocationForecastState}
+              secondaryForecast={secondaryLocationForecast}
+              secondaryForecastHourly={secondaryLocationForecastHourly}
+              secondaryLocationForecastCity={secondaryLocationForecastCity}
+              secondaryLocationForecastState={secondaryLocationForecastState}
+              setSecondaryLocation={setSecondaryLocation}
+            />
           </div>
         </div>
       </main>

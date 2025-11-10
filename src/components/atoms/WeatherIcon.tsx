@@ -14,6 +14,7 @@ export const WeatherIcon = ({ shortForecast, size = 100 }: { shortForecast: stri
         'rain': 'weather_icons/storm.lottie',
         'storm': 'weather_icons/storm.lottie',
         'snow': 'weather_icons/snow.lottie',
+        'frost': 'weather_icons/snow.lottie',
         'fog': 'weather_icons/foggy.lottie',
         'wind': 'weather_icons/windy.lottie',
         'clear': 'weather_icons/sunny.lottie',

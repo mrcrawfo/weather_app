@@ -16,6 +16,7 @@ export const FavoriteLocation = ({ onClick, location, favoriteLocations, addFavo
                     if (favoriteLocations.find((loc) => loc.name === location.name)) {
                       removeFavoriteLocation(location);
                     } else {
+                      // TODO: Make sure Saved Locations accordion is expanded, otherwise it would seem to disappear
                       addFavoriteLocation(location);
                     }
                   }}
