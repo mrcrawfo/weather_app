@@ -19,7 +19,7 @@ export const SevenDayForecast = ({ forecast }: any ) => {
     }, [forecast]);
 
     return (
-        <Accordion>
+        <Accordion expanded={forecast != null}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography variant="h6">7-Day Forecast</Typography>
             </AccordionSummary>

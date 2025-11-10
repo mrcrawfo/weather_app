@@ -1,7 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Accordion, AccordionDetails, AccordionSummary, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import LocationPinIcon from '@mui/icons-material/LocationPin';
 
 import './App.css';
 import { SevenDayForecast } from './components/organisms/SevenDayForecast';
@@ -33,8 +30,11 @@ function App() {
   return (
     <div className="min-h-screen min-w-screen flex flex-col bg-gray-50">
       <header className="sticky top-0 z-10 bg-white shadow-sm min-w-screen">
-        <div className="max-w-7xl mx-auto px-4 lg:px-32 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-semibold text-center min-w-full">Weather App</h1>
+        <div className="max-w-7xl mx-auto px-4 lg:px-32 py-4 flex items-center justify-center">
+          <div className="flex items-center space-x-4">
+            <img src="/weather_app_icon.png" alt="Weather App Icon" className="h-16 xl:h-24" />
+            <h1 className="font-semibold">Weather App</h1>
+          </div>
         </div>
       </header>
 

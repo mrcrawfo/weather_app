@@ -22,7 +22,7 @@ export const HourlyForecast = ({ forecast }: any ) => {
                 <Typography variant="h6">Hourly Forecast</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                <div className="prose">
+                <div className="prose max-h-[40vh] overflow-y-auto">
                     {hours.length > 0 && (
                         <List>
                         {hours.map((hour: any) => (
