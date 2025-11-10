@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export default function useWeather() {
-    const [primaryLoading, setPrimaryLoading] = useState(true);
+    const [primaryLoading, setPrimaryLoading] = useState(false);
     const [primaryError, setPrimaryError] = useState<string | null>(null);
     
     const [primaryLocation, setPrimaryLocation] = useState<{ lat: number; lng: number, city?: string, state?: string } | null>(null);
@@ -13,7 +13,7 @@ export default function useWeather() {
     const [primaryLocationForecast, setPrimaryLocationForecast] = useState<any>(null);
     const [primaryLocationForecastHourly, setPrimaryLocationForecastHourly] = useState<any>(null);
     
-    const [secondaryLoading, setSecondaryLoading] = useState(true);
+    const [secondaryLoading, setSecondaryLoading] = useState(false);
     const [secondaryError, setSecondaryError] = useState<string | null>(null);
 
     const [secondaryLocation, setSecondaryLocation] = useState<{ lat: number; lng: number, city?: string, state?: string } | null>(null);
@@ -27,12 +27,12 @@ export default function useWeather() {
 
     useEffect(() => {
         let mounted = true;
-        setPrimaryLoading(true);
         setPrimaryError(null);
         setPrimaryLocationForecast(null);
         setPrimaryLocationForecastHourly(null);
 
         if (primaryLocation) {
+            setPrimaryLoading(true);
             const latEncoded = encodeURIComponent(primaryLocation.lat);
             const lngEncoded = encodeURIComponent(primaryLocation.lng);
             const url = `https://api.weather.gov/points/${latEncoded},${lngEncoded}`;
@@ -123,12 +123,12 @@ export default function useWeather() {
 
     useEffect(() => {
         let mounted = true;
-        setSecondaryLoading(true);
         setSecondaryError(null);
         setSecondaryLocationForecast(null);
         setSecondaryLocationForecastHourly(null);
 
         if (secondaryLocation) {
+            setSecondaryLoading(true);
             const latEncoded = encodeURIComponent(secondaryLocation.lat);
             const lngEncoded = encodeURIComponent(secondaryLocation.lng);
             const url = `https://api.weather.gov/points/${latEncoded},${lngEncoded}`;

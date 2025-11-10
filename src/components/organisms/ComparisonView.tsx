@@ -2,20 +2,23 @@ import { Accordion, AccordionDetails, AccordionSummary, Autocomplete, TextField,
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import useGeocoding from '../../hooks/useGeocoding';
+import LocationView from '../molecules/LocationView';
 
 type ComparisonViewProps = {
-    forecast: any;
-    forecastHourly: any;
+    primaryForecast: any;
+    primaryForecastHourly: any;
     primaryLocationCity: string | null;
     primaryLocationState: string | null;
+    primaryLoading: boolean;
     secondaryForecast: any;
     secondaryForecastHourly: any;
     secondaryLocationForecastCity: string | null;
     secondaryLocationForecastState: string | null;
+    secondaryLoading: boolean;
     setSecondaryLocation: (location: { lat: number, lng: number, city?: string, state?: string }) => void;
 };
 
-export const ComparisonView = ({ forecast, forecastHourly, primaryLocationCity, primaryLocationState, secondaryForecast, secondaryForecastHourly, secondaryLocationForecastCity, secondaryLocationForecastState, setSecondaryLocation }: ComparisonViewProps) => {
+export const ComparisonView = ({ primaryForecast, primaryForecastHourly, primaryLocationCity, primaryLocationState, primaryLoading, secondaryForecast, secondaryForecastHourly, secondaryLocationForecastCity, secondaryLocationForecastState, secondaryLoading, setSecondaryLocation }: ComparisonViewProps) => {
   const { USLocations } = useGeocoding();
 
   return (
@@ -30,6 +33,7 @@ export const ComparisonView = ({ forecast, forecastHourly, primaryLocationCity, 
                     <div className="flex flex-col gap-2">
                         {/* Autocomplete for custom location input, using locations precompiled from country-state-city via useGecoding */}
                         <Autocomplete
+                            sx={{ margin: '8px' }}
                             options={USLocations.map((l) => l.name)}
                             onInputChange={(_, value) => {
                                 // TODO: Handle input/location change
@@ -40,11 +44,27 @@ export const ComparisonView = ({ forecast, forecastHourly, primaryLocationCity, 
                                     console.log('Selected location set to:', selectedLocation);
                                 }
                             }}
-                            renderInput={(params) => <TextField {...params} label="Enter custom location" />}
+                            renderInput={(params) => <TextField {...params} label="Enter comparison location" />}
                         />
                     </div>
                 </div>
               </div>
+          </div>
+          <div className="flex flex-row justify-evenly">
+            <LocationView
+              forecast={primaryForecast}
+              forecastHourly={primaryForecastHourly}
+              locationCity={primaryLocationCity}
+              locationState={primaryLocationState}
+              loading={primaryLoading}
+            />
+            <LocationView
+              forecast={secondaryForecast}
+              forecastHourly={secondaryForecastHourly}
+              locationCity={secondaryLocationForecastCity}
+              locationState={secondaryLocationForecastState}
+              loading={secondaryLoading}
+            />
           </div>
         </AccordionDetails>
     </Accordion>

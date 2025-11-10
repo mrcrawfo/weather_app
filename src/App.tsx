@@ -15,7 +15,20 @@ function App() {
 
   const { geolocation } = useGeolocation();
 
-  const { primaryLocationForecast, primaryLocationForecastHourly, primaryLocationForecastCity, primaryLocationForecastState, secondaryLocationForecast, secondaryLocationForecastHourly, secondaryLocationForecastCity, secondaryLocationForecastState, setPrimaryLocation, setSecondaryLocation } = useWeather();
+  const {
+    primaryLocationForecast,
+    primaryLocationForecastHourly,
+    primaryLocationForecastCity,
+    primaryLocationForecastState,
+    primaryLoading,
+    secondaryLocationForecast,
+    secondaryLocationForecastHourly,
+    secondaryLocationForecastCity,
+    secondaryLocationForecastState,
+    secondaryLoading,
+    setPrimaryLocation,
+    setSecondaryLocation
+  } = useWeather();
 
   useEffect(() => {
     if (geolocation) {
@@ -41,14 +54,16 @@ function App() {
             <SevenDayForecast forecast={primaryLocationForecast} />
             <HourlyForecast forecast={primaryLocationForecastHourly} />
             <ComparisonView
-              forecast={primaryLocationForecast}
-              forecastHourly={primaryLocationForecastHourly}
+              primaryForecast={primaryLocationForecast}
+              primaryForecastHourly={primaryLocationForecastHourly}
               primaryLocationCity={primaryLocationForecastCity}
               primaryLocationState={primaryLocationForecastState}
+              primaryLoading={primaryLoading}
               secondaryForecast={secondaryLocationForecast}
               secondaryForecastHourly={secondaryLocationForecastHourly}
               secondaryLocationForecastCity={secondaryLocationForecastCity}
               secondaryLocationForecastState={secondaryLocationForecastState}
+              secondaryLoading={secondaryLoading}
               setSecondaryLocation={setSecondaryLocation}
             />
           </div>

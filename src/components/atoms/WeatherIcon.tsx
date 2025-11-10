@@ -32,7 +32,7 @@ export const WeatherIcon = ({ shortForecast, size = 100 }: { shortForecast: stri
     const iconUrl = matchedIcon ? matchedIcon[1] : null;
 
     return (
-        <div style={{ width: size, height: size }}>
+        <div style={{ width: size, height: size, zIndex: 100 }}>
             {!iconUrl && (
                 <div style={{ width: size, height: size, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#eee', borderRadius: '8px' }}>
                     {/* Using a CircularProgress spinner as a fallback when no appropriate icon is found */}
@@ -42,7 +42,7 @@ export const WeatherIcon = ({ shortForecast, size = 100 }: { shortForecast: stri
             {iconUrl && (
                 <DotLottieReact
                     src={iconUrl}
-                    style={{ width: '100%', height: '100%' }}
+                    style={{ width: '100%', height: '100%', zIndex: 100 }}
                     loop
                     autoplay
                 />
