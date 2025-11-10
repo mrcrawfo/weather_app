@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Accordion, AccordionDetails, AccordionSummary, LinearProgress, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LocationPinIcon from '@mui/icons-material/LocationPin';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
@@ -80,12 +80,31 @@ function App() {
               </AccordionSummary>
               <AccordionDetails>
                 <div className="prose">
-                  <p>7-day weather forecast details go here.</p>
-                  <DotLottieReact
+                  {primaryLocationForecast?.properties?.periods?.length && (
+                    <div>
+                      <ul>
+                        {primaryLocationForecast.properties.periods.map((day: any) => (
+                          <li key={day.startTime}>
+                            <div className="flex flex-row items-justify-start gap-4">
+                              <img src={day.icon} alt={day.shortForecast} />
+                              <div className="flex flex-col">
+                                <Typography variant="h4">{day.name}</Typography>
+                                <Typography variant="body1">{day.shortForecast} - {day.temperature}° {day.temperatureUnit}</Typography>
+                                <Typography variant="subtitle1">Wind: {day.windSpeed} {day.windDirection}</Typography>
+                                <Typography variant="subtitle1">{day.detailedForecast}</Typography>
+                                <Typography variant="subtitle1">{day.probabilityOfPrecipitation.value}% chance of precipitation</Typography>
+                              </div>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {/* <DotLottieReact
                     src="weather_icons/partly_cloudy.lottie"
                     loop
                     autoplay
-                  />
+                  /> */}
                 </div>
               </AccordionDetails>
             </Accordion>

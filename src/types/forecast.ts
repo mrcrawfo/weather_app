@@ -1,0 +1,1 @@
+export type USLocation = { city: string; state: string; lat: string | null | undefined; lng: string | null | undefined; label: string }
