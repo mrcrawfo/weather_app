@@ -2,18 +2,25 @@ import { useState } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Autocomplete, Button, ButtonGroup, List, TextField, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import Location from '../atoms/Location';
+import FavoriteLocation from '../atoms/FavoriteLocation';
 import useFavoriteLocations from '../../hooks/useFavoriteLocations';
 import useGeocoding from '../../hooks/useGeocoding';
 import type { USLocation } from '../../types/forecast';
 
-export const LocationSelector = ({ locationName }: { locationName: string | null }) => {
+export const LocationSelector = ({ locationName, setPrimaryLocation }: { locationName: string | null, setPrimaryLocation: (location: { lat: number, lng: number }) => void }) => {
   const [usingGeolocation, setUsingGeolocation] = useState<boolean>(true);
 
   const { favoriteLocations, addFavoriteLocation, removeFavoriteLocation } = useFavoriteLocations();
   const { USLocations } = useGeocoding();
 
   const [selectedLocation, setSelectedLocation] = useState<USLocation | null>(null);
+
+  const handleLocationClick = (newLocation: USLocation) => {
+    if (newLocation.lat && newLocation.lng) {
+      setUsingGeolocation(false);
+      setPrimaryLocation({ lat: parseFloat(newLocation.lat), lng: parseFloat(newLocation.lng) });
+    }
+  };
 
   return (
     <Accordion>
@@ -61,7 +68,7 @@ export const LocationSelector = ({ locationName }: { locationName: string | null
                         renderInput={(params) => <TextField {...params} label="Enter custom location" />}
                       />
                       {selectedLocation && (!favoriteLocations.find((loc) => loc.name === selectedLocation.name) && (
-                        <Location key={selectedLocation.name} location={selectedLocation} favoriteLocations={favoriteLocations} addFavoriteLocation={addFavoriteLocation} removeFavoriteLocation={removeFavoriteLocation} />
+                        <FavoriteLocation key={selectedLocation.name} onClick={() => handleLocationClick(selectedLocation)} location={selectedLocation} favoriteLocations={favoriteLocations} addFavoriteLocation={addFavoriteLocation} removeFavoriteLocation={removeFavoriteLocation} />
                       ))}
                     </div>
                   )}
@@ -76,7 +83,7 @@ export const LocationSelector = ({ locationName }: { locationName: string | null
                     <AccordionDetails>
                       <List>
                         {favoriteLocations.map((location) => (
-                          <Location key={location.name} location={location} favoriteLocations={favoriteLocations} addFavoriteLocation={addFavoriteLocation} removeFavoriteLocation={removeFavoriteLocation} />
+                          <FavoriteLocation key={location.name} onClick={() => handleLocationClick(location)} location={location} favoriteLocations={favoriteLocations} addFavoriteLocation={addFavoriteLocation} removeFavoriteLocation={removeFavoriteLocation} />
                         ))}
                       </List>
                     </AccordionDetails>

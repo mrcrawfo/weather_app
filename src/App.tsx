@@ -12,7 +12,7 @@ function App() {
 
   const { geolocation } = useGeolocation();
 
-  const { primaryLocationForecast, primaryLocationForecastHourly, primaryLocationForecastCity, primaryLocationForecastState, setPrimaryLocation, loading, error } = useWeather();
+  const { primaryLocationForecast, primaryLocationForecastHourly, primaryLocationForecastCity, primaryLocationForecastState, setPrimaryLocation } = useWeather();
 
   useEffect(() => {
     if (geolocation) {
@@ -42,7 +42,7 @@ function App() {
         {/* side gutters are visible on desktop (lg and up). On small screens gutters collapse so content uses full width. */}
         <div className="max-w-6xl mx-auto px-4 lg:px-32 py-6">
           <div className="space-y-4">
-            <LocationSelector locationName={locationName} />
+            <LocationSelector locationName={locationName} setPrimaryLocation={setPrimaryLocation} />
             <SevenDayForecast forecast={primaryLocationForecast} />
             <HourlyForecast forecast={primaryLocationForecastHourly} />
           </div>

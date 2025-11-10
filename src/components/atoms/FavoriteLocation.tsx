@@ -3,10 +3,10 @@ import LocationPinIcon from '@mui/icons-material/LocationPin';
 
 import type { USLocation } from '../../types/forecast';
 
-export const Location = ({ location, favoriteLocations, addFavoriteLocation, removeFavoriteLocation }: { location: USLocation, favoriteLocations: USLocation[], addFavoriteLocation: (location: USLocation) => void, removeFavoriteLocation: (location: USLocation) => void }) => {
+export const FavoriteLocation = ({ onClick, location, favoriteLocations, addFavoriteLocation, removeFavoriteLocation }: { onClick: () => void, location: USLocation, favoriteLocations: USLocation[], addFavoriteLocation: (location: USLocation) => void, removeFavoriteLocation: (location: USLocation) => void }) => {
   return (
         <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={onClick}>
                 <ListItemIcon>
                     <LocationPinIcon />
                 </ListItemIcon>
@@ -27,4 +27,4 @@ export const Location = ({ location, favoriteLocations, addFavoriteLocation, rem
     );
 };
 
-export default Location;
+export default FavoriteLocation;
