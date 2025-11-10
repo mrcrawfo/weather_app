@@ -8,6 +8,7 @@ import { SevenDayForecast } from './components/organisms/SevenDayForecast';
 import { HourlyForecast } from './components/organisms/HourlyForecast';
 import useGeolocation from './hooks/useGeolocation';
 import useWeather from './hooks/useWeather';
+import LocationSelector from './components/organisms/LocationSelector';
 
 function App() {
   const [locationName, setLocationName] = useState<string | null>(null);
@@ -41,40 +42,7 @@ function App() {
         {/* side gutters are visible on desktop (lg and up). On small screens gutters collapse so content uses full width. */}
         <div className="max-w-6xl mx-auto px-4 lg:px-32 py-6">
           <div className="space-y-4">
-            <Accordion defaultExpanded>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              {locationName ? (
-                <Typography variant="h6">{locationName}</Typography>
-              ) : (
-                <Typography variant="h6" className="animate-pulse font-stretch-semi-expanded font-thin">Loading location...</Typography>
-              )}
-              </AccordionSummary>
-              <AccordionDetails>
-                <div className="prose">
-                  <p>Current location details go here.</p>
-                  <div className="mt-4">
-                    <Accordion>
-                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <Typography variant="subtitle1">Saved Locations</Typography>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <List>
-                          <ListItem disablePadding>
-                            <ListItemButton>
-                              <ListItemIcon>
-                                <LocationPinIcon />
-                              </ListItemIcon>
-                              <ListItemText primary="Stamford, CT" />
-                            </ListItemButton>
-                          </ListItem>
-                        </List>
-                      </AccordionDetails>
-                    </Accordion>
-                  </div>
-                </div>
-              </AccordionDetails>
-            </Accordion>
-
+            <LocationSelector locationName={locationName} />
             <SevenDayForecast forecast={primaryLocationForecast} />
             <HourlyForecast forecast={primaryLocationForecastHourly} />
           </div>
