@@ -16,10 +16,11 @@ export default function useGeolocation() {
             return;
         }
 
-        // TODO: Handle 'CoreLocationProvider: CoreLocation framework reported a kCLErrorLocationUnknown failure.' error before user allows location permission
+        let mounted = true;
 
-        const watchId = navigator.geolocation.watchPosition(
+        navigator.geolocation.getCurrentPosition(
             (position) => {
+                if (!mounted) return;
                 setGeolocation({
                     lat: position.coords.latitude,
                     lng: position.coords.longitude,
@@ -27,13 +28,14 @@ export default function useGeolocation() {
                 setError(null);
             },
             (err) => {
+                if (!mounted) return;
                 setError(err.message);
             },
             options
         );
 
         return () => {
-            navigator.geolocation.clearWatch(watchId);
+            mounted = false;
         };
     }, []);
 
