@@ -20,7 +20,7 @@ export const FavoriteLocation = ({ onClick, location, favoriteLocations, addFavo
                     }
                   }}
                 >
-                  {favoriteLocations.find((loc) => loc.name === location.name) ? 'Remove from Favorites' : 'Add to Favorites'}
+                  {favoriteLocations.find((loc) => loc.name === location.name) ? 'Remove' : 'Add to Favorites'}
                 </Button>
             </ListItemButton>
         </ListItem>
