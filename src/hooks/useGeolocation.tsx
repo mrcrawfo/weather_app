@@ -12,6 +12,7 @@ export default function useGeolocation() {
 
     useEffect(() => {
         if (!navigator.geolocation) {
+            // TODO: Handle 'CoreLocationProvider: CoreLocation framework reported a kCLErrorLocationUnknown failure.' error before user allows location permission
             setError('Geolocation is not supported by this browser.');
             return;
         }
@@ -33,6 +34,8 @@ export default function useGeolocation() {
             },
             options
         );
+
+        // TODO: This was refactored to a single read instead of a watch. Consider re-adding watchPosition if continuous updates are needed.
 
         return () => {
             mounted = false;
