@@ -5,12 +5,15 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Location from '../atoms/Location';
 import useFavoriteLocations from '../../hooks/useFavoriteLocations';
 import useGeocoding from '../../hooks/useGeocoding';
+import type { USLocation } from '../../types/forecast';
 
 export const LocationSelector = ({ locationName }: { locationName: string | null }) => {
   const [usingGeolocation, setUsingGeolocation] = useState<boolean>(true);
 
   const { favoriteLocations, addFavoriteLocation, removeFavoriteLocation } = useFavoriteLocations();
   const { USLocations } = useGeocoding();
+
+  const [selectedLocation, setSelectedLocation] = useState<USLocation | null>(null);
 
   return (
     <Accordion>
@@ -52,26 +55,33 @@ export const LocationSelector = ({ locationName }: { locationName: string | null
                         onInputChange={(_, value) => {
                           // TODO: Handle input/location change
                           console.log('Custom location input changed to:', value);
+                          setSelectedLocation(USLocations.find((loc) => loc.name === value) || null);
+                          console.log('Selected location set to:', selectedLocation);
                         }}
                         renderInput={(params) => <TextField {...params} label="Enter custom location" />}
                       />
+                      {selectedLocation && (!favoriteLocations.find((loc) => loc.name === selectedLocation.name) && (
+                        <Location key={selectedLocation.name} location={selectedLocation} favoriteLocations={favoriteLocations} addFavoriteLocation={addFavoriteLocation} removeFavoriteLocation={removeFavoriteLocation} />
+                      ))}
                     </div>
                   )}
                 </div>
               </div>
               <div className="mt-4">
-                {favoriteLocations.map((location) => (
+                {favoriteLocations.length > 0 && (
                   <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                       <Typography variant="subtitle1">Saved Locations</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                       <List>
-                        <Location key={location.name} location={location} />
+                        {favoriteLocations.map((location) => (
+                          <Location key={location.name} location={location} favoriteLocations={favoriteLocations} addFavoriteLocation={addFavoriteLocation} removeFavoriteLocation={removeFavoriteLocation} />
+                        ))}
                       </List>
                     </AccordionDetails>
                   </Accordion>
-                ))}
+                )}
                 {favoriteLocations.length === 0 && (
                   <Typography variant="h6">No saved locations.</Typography>
                 )}

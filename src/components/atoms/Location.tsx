@@ -1,9 +1,9 @@
-import { ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Button, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import LocationPinIcon from '@mui/icons-material/LocationPin';
 
 import type { USLocation } from '../../types/forecast';
 
-export const Location = ({ location }: { location: USLocation }) => {
+export const Location = ({ location, favoriteLocations, addFavoriteLocation, removeFavoriteLocation }: { location: USLocation, favoriteLocations: USLocation[], addFavoriteLocation: (location: USLocation) => void, removeFavoriteLocation: (location: USLocation) => void }) => {
   return (
         <ListItem disablePadding>
             <ListItemButton>
@@ -11,6 +11,17 @@ export const Location = ({ location }: { location: USLocation }) => {
                     <LocationPinIcon />
                 </ListItemIcon>
                 <ListItemText primary={location.name} />
+                <Button variant="contained" size="small" color={favoriteLocations.find((loc) => loc.name === location.name) ? 'warning' : 'primary'}
+                  onClick={() => {
+                    if (favoriteLocations.find((loc) => loc.name === location.name)) {
+                      removeFavoriteLocation(location);
+                    } else {
+                      addFavoriteLocation(location);
+                    }
+                  }}
+                >
+                  {favoriteLocations.find((loc) => loc.name === location.name) ? 'Remove from Favorites' : 'Add to Favorites'}
+                </Button>
             </ListItemButton>
         </ListItem>
     );
