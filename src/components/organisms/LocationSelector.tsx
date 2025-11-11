@@ -7,13 +7,20 @@ import useFavoriteLocations from '../../hooks/useFavoriteLocations';
 import useGeocoding from '../../hooks/useGeocoding';
 import type { USLocation } from '../../types/forecast';
 
-export const LocationSelector = ({ locationName, setPrimaryLocation }: { locationName: string | null, setPrimaryLocation: (location: { lat: number, lng: number, city?: string, state?: string }) => void }) => {
+export const LocationSelector = ({ geolocation, locationName, setPrimaryLocation }: { geolocation: { lat: number, lng: number } | null, locationName: string | null, setPrimaryLocation: (location: { lat: number, lng: number, city?: string, state?: string }) => void }) => {
   const [usingGeolocation, setUsingGeolocation] = useState<boolean>(true);
 
   const { favoriteLocations, addFavoriteLocation, removeFavoriteLocation } = useFavoriteLocations();
   const { USLocations } = useGeocoding();
 
   const [selectedLocation, setSelectedLocation] = useState<USLocation | null>(null);
+
+  const handleGeolocationClick = () => {
+    if (geolocation) {
+      setUsingGeolocation(true);
+      setPrimaryLocation(geolocation);
+    }
+  };
 
   const handleLocationClick = (newLocation: USLocation) => {
     if (newLocation.lat && newLocation.lng && newLocation.city && newLocation.state && (`${newLocation.city}, ${newLocation.state}` !== locationName)) {
@@ -38,7 +45,7 @@ export const LocationSelector = ({ locationName, setPrimaryLocation }: { locatio
                   <ButtonGroup variant="outlined" aria-label="location source toggle">
                     <Button
                       variant={usingGeolocation ? 'contained' : 'outlined'}
-                      onClick={() => setUsingGeolocation(true)}
+                      onClick={() => handleGeolocationClick()}
                     >
                       Geolocation
                     </Button>

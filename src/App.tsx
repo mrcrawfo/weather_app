@@ -50,7 +50,7 @@ function App() {
         {/* side gutters are visible on desktop (lg and up). On small screens gutters collapse so content uses full width. */}
         <div className="max-w-6xl mx-auto px-4 lg:px-32 py-6">
           <div className="space-y-4">
-            <LocationSelector locationName={locationName} setPrimaryLocation={setPrimaryLocation} />
+            <LocationSelector geolocation={geolocation}locationName={locationName} setPrimaryLocation={setPrimaryLocation} />
             <SevenDayForecast forecast={primaryLocationForecast} />
             <HourlyForecast forecast={primaryLocationForecastHourly} />
             <ComparisonView
