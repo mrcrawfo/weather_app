@@ -21,6 +21,7 @@
     "@mui/material": "^7.3.5",
     "@tailwindcss/vite": "^4.1.17",
     "country-state-city": "^3.2.1",
+    "highcharts": "^12.4.0",
     "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
     "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0",
     "tailwindcss": "^4.1.17"

@@ -3,6 +3,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import useGeocoding from '../../hooks/useGeocoding';
 import LocationView from '../molecules/LocationView';
+import { ComparisonGraph } from '../molecules/ComparisonGraph';
 
 type ComparisonViewProps = {
     primaryForecast: any;
@@ -50,7 +51,7 @@ export const ComparisonView = ({ primaryForecast, primaryForecastHourly, primary
                 </div>
               </div>
           </div>
-          <div className="flex flex-row justify-evenly">
+          <div className="flex flex-col lg:flex-row justify-evenly">
             <LocationView
               forecast={primaryForecast}
               forecastHourly={primaryForecastHourly}
@@ -66,6 +67,13 @@ export const ComparisonView = ({ primaryForecast, primaryForecastHourly, primary
               loading={secondaryLoading}
             />
           </div>
+          {(primaryForecastHourly && secondaryForecastHourly && primaryForecastHourly.properties.periods.length > 0 && secondaryForecastHourly.properties.periods.length > 0 && primaryLocationCity && primaryLocationState && secondaryLocationForecastCity && secondaryLocationForecastState) ? (
+            <ComparisonGraph primaryForecastHourly={primaryForecastHourly} secondaryForecastHourly={secondaryForecastHourly} primaryForecastCity={primaryLocationCity} primaryForecastState={primaryLocationState} secondaryForecastCity={secondaryLocationForecastCity} secondaryForecastState={secondaryLocationForecastState} />
+          ): (
+            <div className="w-full h-80 bg-gray-200 rounded-md items-center justify-center flex mt-4">
+              <Typography variant="body1" align="center">Enter a comparison location to see the comparison graph.</Typography>
+            </div>
+          )}
         </AccordionDetails>
     </Accordion>
   );

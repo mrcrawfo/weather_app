@@ -12,7 +12,7 @@ type LocationViewProps = {
 
 export const LocationView = ({ forecast, forecastHourly, locationCity, locationState, loading }: LocationViewProps) => {
     return (
-        <Card sx={{ position: 'relative', overflow: 'hidden', p: 0, minHeight: 400, width: '50%' }}>
+        <Card sx={{ position: 'relative', overflow: 'hidden', p: 0, minHeight: 400 }} className="w-full lg:w-1/2 m-4">
             {loading && (
                 <div className="flex flex-col items-center justify-center w-full h-full p-4">
                     <CircularProgress />

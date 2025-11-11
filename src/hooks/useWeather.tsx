@@ -52,7 +52,7 @@ export default function useWeather() {
                     if (mounted) setPrimaryError(String(err));
                 })
                 .finally(() => {
-                    if (mounted) setPrimaryLoading(false);
+                    // if (mounted) setPrimaryLoading(false);
                 });
 
             return () => {
@@ -79,7 +79,7 @@ export default function useWeather() {
                     if (mounted) setPrimaryError(String(err));
                 })
                 .finally(() => {
-                    if (mounted) setPrimaryLoading(false);
+                    if (mounted && primaryLocationForecastHourly) setPrimaryLoading(false);
                 });
 
             return () => {
@@ -106,7 +106,7 @@ export default function useWeather() {
                     if (mounted) setPrimaryError(String(err));
                 })
                 .finally(() => {
-                    if (mounted) setPrimaryLoading(false);
+                    if (mounted && primaryLocationForecast) setPrimaryLoading(false);
                 });
 
             return () => {
@@ -148,7 +148,7 @@ export default function useWeather() {
                     if (mounted) setSecondaryError(String(err));
                 })
                 .finally(() => {
-                    if (mounted) setSecondaryLoading(false);
+                    // if (mounted) setSecondaryLoading(false);
                 });
 
             return () => {
@@ -175,7 +175,7 @@ export default function useWeather() {
                     if (mounted) setSecondaryError(String(err));
                 })
                 .finally(() => {
-                    if (mounted) setSecondaryLoading(false);
+                    if (mounted && secondaryLocationForecastHourly) setSecondaryLoading(false);
                 });
 
             return () => {
@@ -202,7 +202,7 @@ export default function useWeather() {
                     if (mounted) setSecondaryError(String(err));
                 })
                 .finally(() => {
-                    if (mounted) setSecondaryLoading(false);
+                    if (mounted && secondaryLocationForecast) setSecondaryLoading(false);
                 });
 
             return () => {
